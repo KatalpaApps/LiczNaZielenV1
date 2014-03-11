@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!--bootstrap setup-->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+
+        <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+
+        <style type="text/css">
+            /*removes padding from boostrap fluid columns*/
+            .no-padding
+            {
+                padding: 0 !important;
+            }
+            /*holds styles connected to the right column sidebar*/
+            .sidebar-style
+            {
+                border-left: solid 1px #66624A;
+            }
+            #sidebar-nav-tabs
+            {
+                border-bottom: solid 1px #66624A;
+            }
+            #sidebar-nav-tabs ul
+            {
+                height: 50px;
+            }
+            #sidebar-nav-tabs li
+            {
+                width: 23%;
+                height: 50px;
+                padding:4px;
+                border-right : solid 1px #66624A;
+                border-top: solid 8px #FFFFFF;
+            }
+            #sidebar-nav-tabs li.active
+            {
+                border-top: solid 8px #00BAB1;
+                border-bottom: solid 1px #FFFFFF;
+                padding-bottom: 4px;
+            }
+            #sidebar-nav-tabs li a
+            {
+
+                text-align: center;
+            }
+            #sidebar-nav-tabs li.active a
+            {
+                border: none;
+                margin-right: 0px;
+            }
+            #sidebar-nav-tabs li:last-child
+            {
+                width: 31%
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container-fluid no-padding">
+            <!--container holds map & right column-->
+            <div class="row-fluid no-padding">
+                <!--map-->
+                <div class="col-md-7 col-sm-6 col-xs-12">
+                </div>
+                <!--right column-->   
+                <div id="resizible_jquery" class="col-md-5 col-sm-6 offset-md-7 col-xs-12 col-md-offset-7 col-sm-offset-6 sidebar-style">
+                    <!--tabbed navigation-->
+                    <ul id="sidebar-nav-tabs" class="nav nav-tabs fluid">
+                        <li class="active"><a href="http://localhost:8000/zr/dashboard#details" data-toggle="tab"><i class="fa fa-comments fa-fw"></i>SZCZEGÓŁY</a></li>
+                        <li><a href="http://localhost:8000/zr/dashboard#subscriptions" data-toggle="tab"><i class="fa fa-thumb-tack fa-fw"></i>ŚLEDZĘ</a></li>
+                        <li><a href="http://localhost:8000/zr/dashboard#all" data-toggle="tab"><i class="fa fa-square fa-fw"></i>CAŁOŚĆ</a></li>
+                        <li>
+                            <a href="http://localhost:8000/zr/dashboard#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="./index_files/face.jpeg" alt="avatar" width="20px" height="20px" class="img-circle">
+                                &nbsp;dwa
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://localhost:8000/zr/settings/subscriptions">Subscriptions</a></li>
+                                <li><a href="http://localhost:8000/accounts/logout/">Wyloguj</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="post_content">
+                        <div class="post-list" style="visibility: visible;">
+                            <div class="toolbox">
+                                <span class="left">
+                                    <button id="date_button" class="btn btn-xs" ng-int="rev_d=true;" ng-click="predicate = & #39; date & #39; ; reverse = rev_d; rev_d = !rev_d; data_arrow = !data_arrow | trackEvent: & #39; button Data & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39; ">
+                                        Data
+                                        <span class="glyphicon glyphicon-arrow-down ng-hide" ng-hide="data_arrow"></span>
+                                        <span class="glyphicon glyphicon-arrow-up" ng-show="data_arrow"></span>
+                                    </button>
+
+                                    <button class="btn btn-xs" ng-int="rev_nc=true;numcom_arrow=true;" ng-click="predicate = & #39; numcom & #39; ; reverse = !rev_nc; rev_nc = !rev_nc; numcom_arrow = !numcom_arrow | trackEvent: & #39; Ilość komentarzy & #39; : & #39; Button clicked & #39; :user">
+                                        Ilość komentarzy
+                                        <span class="glyphicon glyphicon-arrow-down" ng-hide="numcom_arrow"></span>
+                                        <span class="glyphicon glyphicon-arrow-up ng-hide" ng-show="numcom_arrow"></span>
+                                    </button>
+                                </span>
+                                <span class="right" style="width:50%;">
+                                    <div class="input-group input-group-sm double-input">
+                                        <input class="form-control ng-pristine ng-valid" ng-model="search.content">
+
+                                        <div class="input-group-btn">
+                                            <button class="btn " style="border-right-width: 0px;border-radius: 0px;"><i class="fa fa-search fa-fw"></i>Szukaj</button>
+                                        </div>
+
+                                        <div class="dropdown input-group-btn">
+                                            <button type="button" class="btn btn-xs dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="" ng-click="searchdate.date = & #39; & #39;">
+                                                <div class="input-append">
+                                                    <input type="hidden" class="input-large ng-pristine ng-valid" data-ng-model="searchdate.date">
+                                                    <span class="add-on">
+                                                        <i class="glyphicon glyphicon-calendar"></i><b class="caret"></b>
+                                                    </span><!--{[{ searchdate.date | date:'yyyy-MM-dd' }]}-->
+                                                    <!--<span class="glyphicon glyphicon-remove" ng-click="searchdate.date='' "></span>-->
+                                                </div>
+
+                                            </button>
+                                            <ul class="dropdown-menu" style="left:-180px;" role="menu" aria-labelledby="dLabel">
+                                                <div class="datetimepicker ng-pristine ng-valid" data-ng-model="searchdate.date" data-datetimepicker-config="{ dropdownSelector: &#39;.my-toggle-select&#39;, startView:&#39;day&#39;, minView:&#39;day&#39; }"><table class="table-condensed">   <thead>       <tr>           <th class="left" data-ng-click="changeView(data.currentView, data.leftDate, $event)"><i class="glyphicon glyphicon-arrow-left"></i></th>           <th class="switch ng-binding" colspan="5" data-ng-click="changeView(data.previousView, data.currentDate, $event)">2014-Mar</th>           <th class="right" data-ng-click="changeView(data.currentView, data.rightDate, $event)"><i class="glyphicon glyphicon-arrow-right"></i></th>       </tr>       <tr>           <!-- ngRepeat: day in data.dayNames --><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Su</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Mo</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Tu</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">We</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Th</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Fr</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Sa</th>       </tr>   </thead>   <tbody>       <tr data-ng-class="{ hide: data.currentView == & quot; day & quot; }" class="hide">           <td colspan="7">              <!-- ngRepeat: dateValue in data.dates -->            </td>       </tr>       <!-- ngRepeat: week in data.weeks --><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">23</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">24</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">25</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">26</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">27</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">28</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">1</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">2</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">3</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">4</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">5</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">6</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">7</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">8</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">9</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">10</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">11</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">12</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">13</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">14</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">15</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">16</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">17</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">18</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">19</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">20</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">21</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">22</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">23</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">24</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">25</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">26</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">27</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">28</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">29</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">30</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">31</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">1</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">2</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">3</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">4</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">5</td>       </tr>   </tbody></table></div>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </span>
+
+                            </div>
+
+
+                            <!--
+                            
+                                <button type="button" class="btn btn-xs"  ng-click="showAll()|trackEvent:'Rozwiń wszystkie':'Button clicked':user:'':'' ">
+                                    <span ng-show="showallposts">Rozwiń wszystkie</span>
+                                    <span ng-hide="showallposts">Zwiń wszystkie</span>
+                                </button>
+                            
+                                <button type="button" ng-class="{'btn':true, 'btn-xs':true, 'btn-default':!search_box}" ng-init="search_box=true;" ng-click="search_box = !search_box  | trackEvent:'Szukaj':'Button clicked':user:'':''  "  >
+                                    Szukaj
+                                </button>
+                            
+                                <button class="btn btn-warning  btn-xs"
+                                          ng-int="rev_sc=true;score_arrow=true;"
+                                          ng-click="predicate = 'score'; reverse=!rev_sc; rev_sc=!rev_sc;score_arrow=!score_arrow | trackEvent:'Ocena':'Button clicked':user ">
+                                        <span ng-hide="score_arrow">Ilość na nie</span>
+                                        <span ng-show="score_arrow">Ilość na tak</span>
+                                </button>
+                            
+                                <div ng-hide="search_box" class="search_box">
+                                        Treść: <input class="form-control input-sm" ng-model="search.content"><br/>
+                                        <div class="dropdown">
+                                            Data: <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+                                                <div class="input-append"><input type="hidden" class="input-large" data-ng-model="searchdate.date"><span class="add-on">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </span>{[{ searchdate.date | date:'yyyy-MM-dd' }]}<span class="glyphicon glyphicon-remove" ng-click="searchdate.date='' "></span>
+                                                </div>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="searchdate.date"
+                                                                data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select', startView:'day', minView:'day' }"></datetimepicker>
+                                            </ul>
+                                        </div>
+                            
+                                        Ocena: <input class="form-control input-small" type="number" ng-model="search.score">
+                                        Ilość komentarzy: <input class="form-control input-small" type="number" >
+                                </div>-->
+                            <div ng-init="user = & #39; dwa & #39;"></div>
+                        </div>
+                        <!-- above has to be at the top all the time, add size to div below -->
+                        <div>
+                            <!-- ngRepeat: post in tree | filter:{geometry: '!!'} | orderBy:predicate:reverse | filter:search | searchdate:searchdate | geoFilter:filterGeoData --><div id="48" ng-class="{&#39;media&#39;:true,&#39;media-list&#39;:true, &#39;main-post&#39;:post.parent == null,&#39;child-post&#39;:post.parent != null}" ng-repeat="post in tree| filter:{geometry: &#39;!!&#39;} | orderBy:predicate:reverse | filter:search | searchdate:searchdate | geoFilter:filterGeoData" class="ng-scope media media-list main-post">
+                                <!-- ngInclude: 'tree_item_renderer.html' --><div ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post dotedline">
+                                        <ul>
+                                            <li style="width:60px"> <!-- start here -->
+                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                            </li>
+                                            <li>
+                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media post">
+                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                            <span class="left">
+                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                <p class="post-content ng-binding">
+                                                                    1. - tekst zmienia rozmiar okna, co jest bardzo szkodliwe
+                                                                </p>
+                                                            </span>
+                                                            <span class="right">
+                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                </button>
+                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btn-default btnwhite btngrey">
+                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <!-- ngRepeat: item in post.filep -->
+                                                        <div style="display: inline-block; width: 100%;">
+                                                            <div class="left">
+                                                                <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope ng-hide"></i>
+                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope"></i>
+                                                                    <!-- ngIf: showallposts==false -->
+                                                                    3 odpowiedzi
+                                                                </button>
+                                                            </div>
+                                                            <div class="right">
+                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                </button>
+                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                </button>
+                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                        <div class="allign_right">
+                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="67" multiple="" file-change=""></button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                            </button>
+                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                        <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                <ul>
+                                                    <li style="width:60px"> <!-- start here -->
+                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                    </li>
+                                                    <li>
+                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                    <span class="left">
+                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                        <p class="post-content ng-binding">
+                                                                            1.1. -- 
+                                                                        </p>
+                                                                    </span>
+                                                                    <span class="right">
+                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                        </button>
+                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btn-default btnwhite btngrey ng-hide">
+                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <!-- ngRepeat: item in post.filep -->
+                                                                <div style="display: inline-block; width: 100%;">
+                                                                    <div class="left">
+                                                                        <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                            <!-- ngIf: showallposts==false -->
+                                                                            4 odpowiedzi
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                        </button>
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                        </button>
+                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                <div class="allign_right">
+                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="68" multiple="" file-change=""></button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    1.1.1. ---
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btn-default btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                                    <!-- ngIf: showallposts==false -->
+                                                                                    2 odpowiedzi
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="69" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                        <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                                <ul>
+                                                                    <li style="width:60px"> <!-- start here -->
+                                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                                    <span class="left">
+                                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                        <p class="post-content ng-binding">
+                                                                                            1.1.1.1
+                                                                                        </p>
+                                                                                    </span>
+                                                                                    <span class="right">
+                                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                        </button>
+                                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <!-- ngRepeat: item in post.filep -->
+                                                                                <div style="display: inline-block; width: 100%;">
+                                                                                    <div class="left">
+                                                                                        <!-- ngIf: post.nodes.length>0 -->
+                                                                                    </div>
+                                                                                    <div class="right">
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                        </button>
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                        </button>
+                                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                                <div class="allign_right">
+                                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="79" multiple="" file-change=""></button>
+                                                                                    </div>
+                                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                        </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                                <ul>
+                                                                    <li style="width:60px"> <!-- start here -->
+                                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                                    <span class="left">
+                                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                        <p class="post-content ng-binding">
+                                                                                            xxx
+                                                                                        </p>
+                                                                                    </span>
+                                                                                    <span class="right">
+                                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                        </button>
+                                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <!-- ngRepeat: item in post.filep -->
+                                                                                <div style="display: inline-block; width: 100%;">
+                                                                                    <div class="left">
+                                                                                        <!-- ngIf: post.nodes.length>0 -->
+                                                                                    </div>
+                                                                                    <div class="right">
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                        </button>
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                        </button>
+                                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                                <div class="allign_right">
+                                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="83" multiple="" file-change=""></button>
+                                                                                    </div>
+                                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    1.1.2
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                                    <!-- ngIf: showallposts==false -->
+                                                                                    1 odpowiedzi
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="77" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                        <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                                <ul>
+                                                                    <li style="width:60px"> <!-- start here -->
+                                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                                    <span class="left">
+                                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                        <p class="post-content ng-binding">
+                                                                                            sss
+                                                                                        </p>
+                                                                                    </span>
+                                                                                    <span class="right">
+                                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                        </button>
+                                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <!-- ngRepeat: item in post.filep -->
+                                                                                <div style="display: inline-block; width: 100%;">
+                                                                                    <div class="left">
+                                                                                        <!-- ngIf: post.nodes.length>0 -->
+                                                                                    </div>
+                                                                                    <div class="right">
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                        </button>
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                        </button>
+                                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                                <div class="allign_right">
+                                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="78" multiple="" file-change=""></button>
+                                                                                    </div>
+                                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    xxx
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 -->
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="82" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    xxx
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 -->
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="84" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                <ul>
+                                                    <li style="width:60px"> <!-- start here -->
+                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                    </li>
+                                                    <li>
+                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                    <span class="left">
+                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                        <p class="post-content ng-binding">
+                                                                            1.2. --
+                                                                        </p>
+                                                                    </span>
+                                                                    <span class="right">
+                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                        </button>
+                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btn-default btnwhite btngrey ng-hide">
+                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <!-- ngRepeat: item in post.filep -->
+                                                                <div style="display: inline-block; width: 100%;">
+                                                                    <div class="left">
+                                                                        <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                            <!-- ngIf: showallposts==false -->
+                                                                            1 odpowiedzi
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                        </button>
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                        </button>
+                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                <div class="allign_right">
+                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="70" multiple="" file-change=""></button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    1.2.1 ---
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 -->
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="71" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                <ul>
+                                                    <li style="width:60px"> <!-- start here -->
+                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                    </li>
+                                                    <li>
+                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                    <span class="left">
+                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                        <p class="post-content ng-binding">
+                                                                            1.3 - bez kolejnych postow
+                                                                        </p>
+                                                                    </span>
+                                                                    <span class="right">
+                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                        </button>
+                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <!-- ngRepeat: item in post.filep -->
+                                                                <div style="display: inline-block; width: 100%;">
+                                                                    <div class="left">
+                                                                        <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                            <!-- ngIf: showallposts==false -->
+                                                                            1 odpowiedzi
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                        </button>
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                        </button>
+                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                <div class="allign_right">
+                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="80" multiple="" file-change=""></button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    1.3.1 - czy się wyrówna
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 -->
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="81" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div><div id="49" ng-class="{&#39;media&#39;:true,&#39;media-list&#39;:true, &#39;main-post&#39;:post.parent == null,&#39;child-post&#39;:post.parent != null}" ng-repeat="post in tree| filter:{geometry: &#39;!!&#39;} | orderBy:predicate:reverse | filter:search | searchdate:searchdate | geoFilter:filterGeoData" class="ng-scope media media-list main-post">
+                                <!-- ngInclude: 'tree_item_renderer.html' --><div ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post dotedline">
+                                        <ul>
+                                            <li style="width:60px"> <!-- start here -->
+                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                            </li>
+                                            <li>
+                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media post">
+                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                            <span class="left">
+                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                <p class="post-content ng-binding">
+                                                                    Moja babcia tu mieszka i wara od tego terenu!
+                                                                </p>
+                                                            </span>
+                                                            <span class="right">
+                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                </button>
+                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btn-default btnwhite btngrey">
+                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <!-- ngRepeat: item in post.filep -->
+                                                        <div style="display: inline-block; width: 100%;">
+                                                            <div class="left">
+                                                                <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                    <!-- ngIf: showallposts==false -->
+                                                                    2 odpowiedzi
+                                                                </button>
+                                                            </div>
+                                                            <div class="right">
+                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                </button>
+                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                </button>
+                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                        <div class="allign_right">
+                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="72" multiple="" file-change=""></button>
+                                                            </div>
+                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                            </button>
+                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                        <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                <ul>
+                                                    <li style="width:60px"> <!-- start here -->
+                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                    </li>
+                                                    <li>
+                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                    <span class="left">
+                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                        <p class="post-content ng-binding">
+                                                                            komentarz nr 1 - pierwszy poziom
+                                                                        </p>
+                                                                    </span>
+                                                                    <span class="right">
+                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                        </button>
+                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <!-- ngRepeat: item in post.filep -->
+                                                                <div style="display: inline-block; width: 100%;">
+                                                                    <div class="left">
+                                                                        <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                            <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                            <!-- ngIf: showallposts==false -->
+                                                                            1 odpowiedzi
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                        </button>
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                        </button>
+                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                <div class="allign_right">
+                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="73" multiple="" file-change=""></button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                    <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                        <ul>
+                                                            <li style="width:60px"> <!-- start here -->
+                                                                <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                            </li>
+                                                            <li>
+                                                                <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                    <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                        <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                            <span class="left">
+                                                                                <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                <p class="post-content ng-binding">
+                                                                                    Komentarz numer 2 - drugi poziom
+                                                                                </p>
+                                                                            </span>
+                                                                            <span class="right">
+                                                                                <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                </button>
+                                                                                <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                    <!-- TODO add pushed pin in case of subscription -->
+                                                                                    <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                </button>
+                                                                            </span>
+                                                                        </div>
+                                                                        <!-- ngRepeat: item in post.filep -->
+                                                                        <div style="display: inline-block; width: 100%;">
+                                                                            <div class="left">
+                                                                                <!-- ngIf: post.nodes.length>0 --><button type="button" class="btn btn-xs btnwhite btngrey ng-scope ng-binding" ng-if="post.nodes.length & gt; 0" ng-click="showOneDown(post) | trackEvent: & #39; Rozwiń & #39; : & #39; Button clicked & #39; :user" ng-disabled="!showallposts">
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-hide="post.rozwin" class="fa fa-caret-up ng-scope"></i>
+                                                                                    <!-- ngIf: showallposts==true --><i ng-if="showallposts == true" ng-show="post.rozwin" class="fa fa-caret-down ng-scope ng-hide"></i>
+                                                                                    <!-- ngIf: showallposts==false -->
+                                                                                    1 odpowiedzi
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="right">
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                </button>
+                                                                                <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                    <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                </button>
+                                                                                <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                    <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                        <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                        <div class="allign_right">
+                                                                            <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="74" multiple="" file-change=""></button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <!-- ngIf: post.nodes.length>0 --><div ng-if="post.nodes.length & gt; 0" class="tab_border ng-scope ng-hide" ng-hide="!(post.rozwin != undefined & amp; & amp; post.rozwin == true) & amp; & amp; showallposts">
+                                                        <!-- ngRepeat: post in post.nodes --><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                                <ul>
+                                                                    <li style="width:60px"> <!-- start here -->
+                                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                                    <span class="left">
+                                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                                        <p class="post-content ng-binding">
+                                                                                            Komentarz numer 3 - trzeci poziom
+                                                                                        </p>
+                                                                                    </span>
+                                                                                    <span class="right">
+                                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                                        </button>
+                                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <!-- ngRepeat: item in post.filep -->
+                                                                                <div style="display: inline-block; width: 100%;">
+                                                                                    <div class="left">
+                                                                                        <!-- ngIf: post.nodes.length>0 -->
+                                                                                    </div>
+                                                                                    <div class="right">
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                                        </button>
+                                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                                        </button>
+                                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                                <div class="allign_right">
+                                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="75" multiple="" file-change=""></button>
+                                                                                    </div>
+                                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                            <!-- ngIf: post.nodes.length>0 -->
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div><!-- ngInclude: 'tree_item_renderer.html' --><div ng-repeat="post in post.nodes" ng-include="& #39; tree_item_renderer.html & #39;" class="ng-scope">
+
+
+                                            <div ng-class="{&#39;tab-post&#39;:true, &#39;dotedline&#39;:post.parent == null}" class="ng-scope tab-post">
+                                                <ul>
+                                                    <li style="width:60px"> <!-- start here -->
+                                                        <img style="position:absolute;" src="./index_files/face.jpeg" alt="avatar" width="40px" height="40px" class="img-circle">
+                                                    </li>
+                                                    <li>
+                                                        <div class="media-body dropbox new_margin"> <!--   style="margin-left: 0px;margin-right: 0px;"  -->
+                                                            <div ng-class="{&#39;media&#39;:true, &#39;post&#39;:post.parent == null,&#39;sub_post&#39;:post.parent != null}" class="media sub_post">
+                                                                <div> <!-- style="display: inline-block; width: 100%;"-->
+                                                                    <span class="left">
+                                                                        <p class="head-autor"><em class="ng-binding">dwa(NaN dni temu)</em></p>
+                                                                        <p class="post-content ng-binding">
+                                                                            komentarz nr 4 - pierwszy poziom
+                                                                        </p>
+                                                                    </span>
+                                                                    <span class="right">
+                                                                        <button ng-hide="post.parent || !post.geometry" type="button" class="btn btn-xs btnwhite btngrey ng-hide" ng-click="zoom_chase(post) | trackEvent: & #39; wyśrodkuj & #39; : & #39; Button clicked & #39; :user:post.id">
+                                                                            <span class="glyphicon glyphicon-screenshot"></span>
+                                                                        </button>
+                                                                        <button ng-hide="post.parent" ng-class="{&#39;btn&#39;:true, &#39;btn-xs&#39;:true, &#39;btn-default&#39;:post.subscription, &#39;btnwhite&#39;:true, &#39;btngrey&#39;:true}" ng-click="subscribe(post, post.subscription); post.subscription = !post.subscription | trackEvent: & #39; Subskrybuj & #39; : & #39; Button clicked & #39; :user" class="btn btn-xs btnwhite btngrey ng-hide">
+                                                                            <!-- TODO add pushed pin in case of subscription -->
+                                                                            <span class="glyphicon glyphicon-pushpin"></span>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                                <!-- ngRepeat: item in post.filep -->
+                                                                <div style="display: inline-block; width: 100%;">
+                                                                    <div class="left">
+                                                                        <!-- ngIf: post.nodes.length>0 -->
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreUp(post) | trackEvent: & #39; score - up & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-up"></span> <span class="ng-binding">0</span> za
+                                                                        </button>
+                                                                        <button class="btn btn-xs btngrey btnwhite" ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" ng-disabled="post.sub_rates" ng-click="scoreDown(post) | trackEvent: & #39; score - down & #39; : & #39; Button clicked & #39; :user">
+                                                                            <span class="glyphicon glyphicon-thumbs-down"></span> <span class="ng-binding">0</span> przeciw
+                                                                        </button>
+                                                                        <button ng-hide="& #39; dwa & #39; == & #39; AnonymousUser & #39;" class="btn btn-xs btnsea btnwhite" ng-click="comment(post) | trackEvent: & #39; Dodaj Komentarz & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39;">
+                                                                            <span class="glyphicon glyphicon-comment"></span>skomentuj
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <textarea ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-model="post.text" class="form-control ng-pristine ng-valid ng-hide" rows="3">                    </textarea>
+                                                                <input type="hidden" ng-model="post.plan" value="" class="ng-pristine ng-valid">
+                                                                <div class="allign_right">
+                                                                    <div class="fileinput fileinput-new ng-hide" data-provides="fileinput" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)">
+                                                                        <button type="button" class="btn btn-xs btn-file btnwhite btngrey"><span class="glyphicon glyphicon-paperclip"></span><input name="..." type="file" value="76" multiple="" file-change=""></button>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-xs btnblue ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="delete(post) | trackEvent: & #39; Usuń & #39; : & #39; Button clicked & #39; :user"> usuń
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-xs btnred ng-hide" ng-hide="!(post.zmiennac != undefined & amp; & amp; post.zmiennac == true)" ng-click="addDown(post) | trackEvent: & #39; Zapisz & #39; : & #39; Button clicked & #39; :user">publikuj
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- ngIf: post.nodes.length>0 -->
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
