@@ -52,9 +52,11 @@ and open the template in the editor.
             }
             #sidebar-nav-tabs li a
             {
-
+                font-family: "source_sans_prolight";
+                font-weight: 700;
+                font-size: 21px;
                 text-align: center;
-            }
+                            }
             #sidebar-nav-tabs li.active a
             {
                 border: none;
@@ -63,6 +65,50 @@ and open the template in the editor.
             #sidebar-nav-tabs li:last-child
             {
                 width: 31%
+            }
+            /*Custom font section*/
+            /*fontawsome custom font for glyphs*/
+            @font-face 
+            {
+                font-family: 'fontawesome';
+                src: url('fonts/fontawesome-webfont.eot'); /* IE 5-8 */ 
+                src: local('☺'),             /* sneakily trick IE */
+                    url('fonts/fontawesome-webfont.woff') format('woff'),    /* FF 3.6, Chrome 5, IE9 */
+                    url('fonts/fontawesome-webfont.ttf') format('truetype'), /* Opera, Safari */
+                    url('fonts/fontawesome-webfont#font') format('svg'); /* iOS */
+            }
+            @font-face 
+            {
+                font-family: 'source_sans_proitalic';
+                src: url('fonts/sourcesanspro-italic-webfont.eot');
+                src: url('fonts/sourcesanspro-italic-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('fonts/sourcesanspro-italic-webfont.woff') format('woff'),
+                    url('fonts/sourcesanspro-italic-webfont.ttf') format('truetype'),
+                    url('sourcesanspro-italic-webfont.svg#source_sans_proitalic') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'source_sans_prolight';
+                src: url('fonts/sourcesanspro-light-webfont.eot');
+                src: url('fonts/sourcesanspro-light-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('fonts/sourcesanspro-light-webfont.woff') format('woff'),
+                    url('fonts/sourcesanspro-light-webfont.ttf') format('truetype'),
+                    url('fonts/sourcesanspro-light-webfont.svg#source_sans_prolight') format('svg');
+                font-weight: normal;
+                font-style: normal;
+
+            }
+            @font-face {
+                font-family: 'source_sans_prosemibold';
+                src: url('fonts/sourcesanspro-semibold-webfont.eot');
+                src: url('fonts/sourcesanspro-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
+                    url('fonts/sourcesanspro-semibold-webfont.ttf') format('truetype'),
+                    url('fonts/sourcesanspro-semibold-webfont.svg#source_sans_prosemibold') format('svg');
+                font-weight: normal;
+                font-style: normal;
             }
 
         </style>
