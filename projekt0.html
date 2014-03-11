@@ -13,15 +13,18 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-
-        <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="js/lib/bootstrap.js"></script>
 
         <style type="text/css">
             /*removes padding from boostrap fluid columns*/
             .no-padding
             {
                 padding: 0 !important;
+            }
+            .no-margin
+            {
+                margin: 0 !important;
             }
             /*holds styles connected to the right column sidebar*/
             .sidebar-style
@@ -32,31 +35,45 @@ and open the template in the editor.
             {
                 border-bottom: solid 1px #66624A;
             }
-            #sidebar-nav-tabs ul
+            ul#sidebar-nav-tabs 
             {
                 height: 50px;
             }
             #sidebar-nav-tabs li
             {
                 width: 23%;
-                height: 50px;
-                padding:4px;
+                height: 50px;         
                 border-right : solid 1px #66624A;
                 border-top: solid 8px #FFFFFF;
+                padding-top: 4px;
             }
             #sidebar-nav-tabs li.active
             {
                 border-top: solid 8px #00BAB1;
-                border-bottom: solid 1px #FFFFFF;
+                border-bottom: solid 4px #FFFFFF;
                 padding-bottom: 4px;
             }
             #sidebar-nav-tabs li a
             {
                 font-family: "source_sans_prolight";
-                font-weight: 700;
-                font-size: 21px;
+                font-size: 1.313em;
+                color:#000000;
                 text-align: center;
-                            }
+                padding: 4px 0 0 0px;
+                width: 100%;
+                max-width:100%;
+
+
+            }
+            #sidebar-nav-tabs li a:hover{
+
+                border-top-color: white;
+                border-bottom: solid 8px #FFFFFF;
+                padding-bottom: 4px;
+                background-color: white;
+
+            }
+
             #sidebar-nav-tabs li.active a
             {
                 border: none;
@@ -65,6 +82,50 @@ and open the template in the editor.
             #sidebar-nav-tabs li:last-child
             {
                 width: 31%
+            }
+            /*user id dropdown*/
+
+            #sidebar-nav-tabs li#user-id-dropdown 
+            {
+                border-top:none;
+                border-right:none;
+            }
+
+            #sidebar-nav-tabs li#user-id-dropdown a
+            {
+                font-family: "source_sans_proitalic";
+                font-weight: normal;
+                font-size: 0.95em;
+
+            }
+          
+            /*glyphs*/
+            #sidebar-nav-tabs li#details-tab a:before
+            {
+                font-family: 'fontawesome';
+                content: "\f086";
+                margin-right: 6px;
+            }
+            #sidebar-nav-tabs li#subscriptions-tab a:before
+            {
+                font-family: 'fontawesome';
+                content: "\f08d";
+                margin-right: 6px;
+            }
+            #sidebar-nav-tabs li#all-tab a:before
+            {
+                font-family: 'fontawesome';
+                content: "\f0c8";
+                margin-right: 6px;
+            }
+            #toolbox
+            {
+                height: 50px;
+                font-family: "source_sans_prolight";
+                font-size: 0.95em;
+                margin-top: 10px;
+                
+             
             }
             /*Custom font section*/
             /*fontawsome custom font for glyphs*/
@@ -126,14 +187,18 @@ and open the template in the editor.
                 <div id="resizible_jquery" class="col-md-5 col-sm-6 offset-md-7 col-xs-12 col-md-offset-7 col-sm-offset-6 sidebar-style">
                     <!--tabbed navigation-->
                     <ul id="sidebar-nav-tabs" class="nav nav-tabs fluid">
-                        <li class="active"><a href="http://localhost:8000/zr/dashboard#details" data-toggle="tab"><i class="fa fa-comments fa-fw"></i>SZCZEGÓŁY</a></li>
-                        <li><a href="http://localhost:8000/zr/dashboard#subscriptions" data-toggle="tab"><i class="fa fa-thumb-tack fa-fw"></i>ŚLEDZĘ</a></li>
-                        <li><a href="http://localhost:8000/zr/dashboard#all" data-toggle="tab"><i class="fa fa-square fa-fw"></i>CAŁOŚĆ</a></li>
-                        <li>
-                            <a href="http://localhost:8000/zr/dashboard#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="./index_files/face.jpeg" alt="avatar" width="20px" height="20px" class="img-circle">
-                                &nbsp;dwa
-                                <b class="caret"></b>
+                        <li id="details-tab" class="active"><a href="#details" data-toggle="tab"><i class="fa fa-comments fa-fw"></i>SZCZEGÓŁY</a></li>
+                        <li id="subscriptions-tab"><a href="#subscriptions" data-toggle="tab"><i class="fa fa-thumb-tack fa-fw"></i>ŚLEDZĘ</a></li>
+                        <li id="all-tab"><a href="#all" data-toggle="tab"><i class="fa fa-square fa-fw"></i>CAŁOŚĆ</a></li>
+                        <li id="user-id-dropdown" class="dropdown open">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-3">
+                                    <img src="images/face.jpeg" alt="avatar" width="35" height="35" class="img-circle" /></span>
+                                    </div>
+                                    <div class="col-md-7 col-sm-9">Jane Very Anonymus</div>
+                                    <div class="col-md-1 col-sm-1"><b class="caret" style="font-size: 24px;"></b></div>
+                                </div>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="http://localhost:8000/zr/settings/subscriptions">Subscriptions</a></li>
@@ -142,9 +207,9 @@ and open the template in the editor.
                         </li>
                     </ul>
                     <div class="post_content">
-                        <div class="post-list" style="visibility: visible;">
-                            <div class="toolbox">
-                                <span class="left">
+                         <div id="toolbox" class="toolbox">
+                             <div class="row">
+                                 <div class="col-md-3">
                                     <button id="date_button" class="btn btn-xs" ng-int="rev_d=true;" ng-click="predicate = & #39; date & #39; ; reverse = rev_d; rev_d = !rev_d; data_arrow = !data_arrow | trackEvent: & #39; button Data & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39; ">
                                         Data
                                         <span class="glyphicon glyphicon-arrow-down ng-hide" ng-hide="data_arrow"></span>
@@ -156,8 +221,8 @@ and open the template in the editor.
                                         <span class="glyphicon glyphicon-arrow-down" ng-hide="numcom_arrow"></span>
                                         <span class="glyphicon glyphicon-arrow-up ng-hide" ng-show="numcom_arrow"></span>
                                     </button>
-                                </span>
-                                <span class="right" style="width:50%;">
+                                </div>
+                                  <div class="col-md-6 col-md-offset-3">
                                     <div class="input-group input-group-sm double-input">
                                         <input class="form-control ng-pristine ng-valid" ng-model="search.content">
 
@@ -175,17 +240,18 @@ and open the template in the editor.
                                                     <!--<span class="glyphicon glyphicon-remove" ng-click="searchdate.date='' "></span>-->
                                                 </div>
 
-                                            </button>
                                             <ul class="dropdown-menu" style="left:-180px;" role="menu" aria-labelledby="dLabel">
                                                 <div class="datetimepicker ng-pristine ng-valid" data-ng-model="searchdate.date" data-datetimepicker-config="{ dropdownSelector: &#39;.my-toggle-select&#39;, startView:&#39;day&#39;, minView:&#39;day&#39; }"><table class="table-condensed">   <thead>       <tr>           <th class="left" data-ng-click="changeView(data.currentView, data.leftDate, $event)"><i class="glyphicon glyphicon-arrow-left"></i></th>           <th class="switch ng-binding" colspan="5" data-ng-click="changeView(data.previousView, data.currentDate, $event)">2014-Mar</th>           <th class="right" data-ng-click="changeView(data.currentView, data.rightDate, $event)"><i class="glyphicon glyphicon-arrow-right"></i></th>       </tr>       <tr>           <!-- ngRepeat: day in data.dayNames --><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Su</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Mo</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Tu</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">We</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Th</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Fr</th><th class="dow ng-scope ng-binding" data-ng-repeat="day in data.dayNames">Sa</th>       </tr>   </thead>   <tbody>       <tr data-ng-class="{ hide: data.currentView == & quot; day & quot; }" class="hide">           <td colspan="7">              <!-- ngRepeat: dateValue in data.dates -->            </td>       </tr>       <!-- ngRepeat: week in data.weeks --><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">23</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">24</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">25</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">26</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">27</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding past" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">28</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">1</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">2</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">3</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">4</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">5</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">6</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">7</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">8</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">9</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">10</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">11</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">12</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">13</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">14</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">15</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">16</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">17</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">18</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">19</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">20</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">21</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">22</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">23</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">24</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">25</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">26</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">27</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">28</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">29</td>       </tr><tr data-ng-show="data.currentView == & quot; day & quot;" data-ng-repeat="week in data.weeks" class="ng-scope">           <!-- ngRepeat: dateValue in week.dates --><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">30</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">31</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">1</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">2</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">3</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">4</td><td data-ng-repeat="dateValue in week.dates" data-ng-click="changeView(data.nextView, dateValue.date, $event)" class="day ng-scope ng-binding future" data-ng-class="{active: dateValue.active, past: dateValue.past, future: dateValue.future}">5</td>       </tr>   </tbody></table></div>
                                             </ul>
 
                                         </div>
                                     </div>
-                                </span>
-
+                                  </div>
+                             </div>
                             </div>
 
+                        <div class="post-list" style="visibility: visible;">
+                           
 
                             <!--
                             
