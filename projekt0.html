@@ -9,24 +9,29 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
         <!--bootstrap setup-->
+        
         <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
         <script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="js/lib/bootstrap.js"></script>
-
+        
+        <!--angular-->
+        <script type="text/javascript" src="js/lib/angular.min.js"></script>
+        
         <style type="text/css">
             /*removes padding from boostrap fluid columns*/
             .no-padding
             {
                 padding: 0 !important;
             }
+               /*removes padding from boostrap fluid columns*/
             .no-margin
             {
                 margin: 0 !important;
             }
-            /*holds styles connected to the right column sidebar*/
+            /*holds styles connected to the right column sidebar */
             .sidebar-style
             {
                 border-left: solid 1px #66624A;
@@ -99,7 +104,7 @@ and open the template in the editor.
 
             }
           
-            /*glyphs*/
+            /*tabbed nav glyphs*/
             #sidebar-nav-tabs li#details-tab a:before
             {
                 font-family: 'fontawesome';
@@ -118,14 +123,25 @@ and open the template in the editor.
                 content: "\f0c8";
                 margin-right: 6px;
             }
+            
+            /*container represents buttons and input just below tabbed navigation*/
             #toolbox
             {
                 height: 50px;
-                font-family: "source_sans_prolight";
-                font-size: 0.95em;
-                margin-top: 10px;
+                margin: 12px 15px 0px 30px;
                 
              
+            }
+            .toolbox-button-grey
+            {
+                font-family: "source_sans_prolight";
+                font-size: 1.1em;
+                margin:0px;
+                padding:0px 7px 0px 7px;
+            }
+            .toolbox-search-button
+            {
+                
             }
             /*Custom font section*/
             /*fontawsome custom font for glyphs*/
@@ -209,20 +225,20 @@ and open the template in the editor.
                     <div class="post_content">
                          <div id="toolbox" class="toolbox">
                              <div class="row">
-                                 <div class="col-md-3">
-                                    <button id="date_button" class="btn btn-xs" ng-int="rev_d=true;" ng-click="predicate = & #39; date & #39; ; reverse = rev_d; rev_d = !rev_d; data_arrow = !data_arrow | trackEvent: & #39; button Data & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39; ">
-                                        Data
+                                 <div class="col-md-4">
+                                    <button id="date_button" class="btn button-xs" ng-int="rev_d=true;" ng-click="predicate = & #39; date & #39; ; reverse = rev_d; rev_d = !rev_d; data_arrow = !data_arrow | trackEvent: & #39; button Data & #39; : & #39; Button clicked & #39; :user: & #39; & #39; : & #39; & #39; ">
+                                        data
                                         <span class="glyphicon glyphicon-arrow-down ng-hide" ng-hide="data_arrow"></span>
                                         <span class="glyphicon glyphicon-arrow-up" ng-show="data_arrow"></span>
                                     </button>
 
-                                    <button class="btn btn-xs" ng-int="rev_nc=true;numcom_arrow=true;" ng-click="predicate = & #39; numcom & #39; ; reverse = !rev_nc; rev_nc = !rev_nc; numcom_arrow = !numcom_arrow | trackEvent: & #39; Ilość komentarzy & #39; : & #39; Button clicked & #39; :user">
-                                        Ilość komentarzy
+                                    <button class="btn button-xs" ng-int="rev_nc=true;numcom_arrow=true;" ng-click="predicate = & #39; numcom & #39; ; reverse = !rev_nc; rev_nc = !rev_nc; numcom_arrow = !numcom_arrow | trackEvent: & #39; Ilość komentarzy & #39; : & #39; Button clicked & #39; :user">
+                                        ilość komentarzy
                                         <span class="glyphicon glyphicon-arrow-down" ng-hide="numcom_arrow"></span>
                                         <span class="glyphicon glyphicon-arrow-up ng-hide" ng-show="numcom_arrow"></span>
                                     </button>
                                 </div>
-                                  <div class="col-md-6 col-md-offset-3">
+                                  <div class="col-md-5 col-md-offset-3">
                                     <div class="input-group input-group-sm double-input">
                                         <input class="form-control ng-pristine ng-valid" ng-model="search.content">
 
