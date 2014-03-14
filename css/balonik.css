@@ -1,0 +1,184 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014-03-14, 23:59:03
+    Author     : Tosiek
+*/
+
+.baloon-outer
+            {
+                width: 792px;
+                height: 719px;
+                max-width: 790px;
+                max-height: 719px;
+                background-image: url("../images/planuj-01.png");
+                background-repeat: no-repeat;
+                background-size: 790px 719px;
+
+            }
+            .baloon
+            {
+                font-family: "source_sans_prosemibold";
+                color: white;  
+                padding-top: 16%;
+                margin-left: 8.5%;
+                margin-right: 8.5%;
+            }
+            .baloon h1
+            {
+                font-size: 2.5em;
+                text-align: center;
+            }
+            .baloon div.signin-form
+            {
+                margin-left: 3%;  
+            }
+            .baloon div.signin-form input
+            {
+                width:308px;
+                float:left;
+                font-family: 'source_sans_prolight';
+            }
+            .baloon div.signin-form label
+            {
+                font-family: 'source_sans_prolight';
+                font-size: 2.2em;
+                float: left;
+                margin-left: .3em;
+                margin-bottom: -4px;
+            }
+            .baloon div.signin-form div.left
+            {
+                margin-top: 4px;
+                width: 308px;
+                float:left;
+            }
+           
+            .baloon div.signin-form div.left button
+            {
+                float: right;
+                font-family: 'source_sans_prolight';
+                font-size: 14px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+            .baloon div.signin-form div.left button:last-child
+            {
+                margin-right: 4px;     
+            }
+
+            div.baloon .btnolive
+            {
+                background-color: #859424;   
+            }
+            div.baloon .btnolive:hover
+            {
+                color:white;
+                background-color: #6D7521;   
+            }
+            div.baloon .btnred
+            {
+                background-color: #ed3618;
+            }
+            div.baloon .btnred:hover
+            {
+                color:white;
+                background-color: #A60011;
+            }
+            div.right
+            {
+                float:left;
+                margin-left: .8em;
+             
+            }
+            div.left p
+            {
+              
+               float: right;
+               font-family: 'source_sans_prolight';
+               font-size: 2.2em;
+               float: right;
+            }
+            .baloon div.signin-form div.right ul 
+            {
+                padding-left: 0px;
+                float:left;
+                list-style: none;
+                margin-top: 10px;
+            }
+             .baloon div.signin-form div.right ul li
+            {
+               
+                float:left;
+                list-style: none;
+                width: 70px;               
+            }
+             .baloon div.signin-form div.right ul li img
+            {
+               
+                margin-left: auto;
+                margin-right: auto;
+            }
+             .baloon div.signin-form div.right ul li a
+            {
+               
+                font-family: 'source_sans_prosemibold';
+                color:#FFFFFF;            
+            }
+            
+            a.blue-lnk
+            {
+                float:left;
+                font-family: 'source_sans_proitalic';
+                color: #2A75C3;
+                padding-top: 6px;
+                padding-bottom: 6px;
+
+            }
+              /*fontawsome custom font for glyphs*/
+            @font-face 
+            {
+                font-family: 'fontawesome';
+                src: url('../fonts/fontawesome-webfont.eot'); /* IE 5-8 */ 
+                src: local('☺'),             /* sneakily trick IE */
+                    url('../fonts/fontawesome-webfont.woff') format('woff'),    /* FF 3.6, Chrome 5, IE9 */
+                    url('../fonts/fontawesome-webfont.ttf') format('truetype'), /* Opera, Safari */
+                    url('../fonts/fontawesome-webfont#font') format('svg'); /* iOS */
+            }
+            @font-face 
+            {
+                font-family: 'source_sans_proitalic';
+                src: url('../fonts/sourcesanspro-italic-webfont.eot');
+                src: url('../fonts/sourcesanspro-italic-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('../fonts/sourcesanspro-italic-webfont.woff') format('woff'),
+                    url('../fonts/sourcesanspro-italic-webfont.ttf') format('truetype'),
+                    url('../sourcesanspro-italic-webfont.svg#source_sans_proitalic') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'source_sans_prolight';
+                src: url('../fonts/sourcesanspro-light-webfont.eot');
+                src: url('../fonts/sourcesanspro-light-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('../fonts/sourcesanspro-light-webfont.woff') format('woff'),
+                    url('../fonts/sourcesanspro-light-webfont.ttf') format('truetype'),
+                    url('../fonts/sourcesanspro-light-webfont.svg#source_sans_prolight') format('svg');
+                font-weight: normal;
+                font-style: normal;
+
+            }
+            @font-face {
+                font-family: 'source_sans_prosemibold';
+                src: url('../fonts/sourcesanspro-semibold-webfont.eot');
+                src: url('../fonts/sourcesanspro-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+                    url('../fonts/sourcesanspro-semibold-webfont.woff') format('woff'),
+                    url('../fonts/sourcesanspro-semibold-webfont.ttf') format('truetype'),
+                    url('../fonts/sourcesanspro-semibold-webfont.svg#source_sans_prosemibold') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+            
