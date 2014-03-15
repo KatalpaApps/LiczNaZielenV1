@@ -33,6 +33,9 @@ and open the template in the editor.
                 <script type="text/javascript" src="js/lib/bootstrap-datepicker.js"></script>-->
         <!--<script type="text/javascript" src="js/lib/ui/jquery-ui.js"></script>-->
 
+        <!--leaflet-->
+        <link rel="stylesheet" href="css/leaflet.css">
+        <script type="text/javascript" src="js/lib/leaflet.js"></script>
         <style type="text/css">
             /*removes padding from boostrap fluid columns*/
             .no-padding
@@ -477,8 +480,51 @@ and open the template in the editor.
                 font-weight: normal;
                 font-style: normal;
             }
-            
+            #map
+            {
+                width: 100%;
+                height: 100%;
+                height: 960px;
+            }
+           div.leaflet-top.leaflet-left
+           {
+               margin-top: 10%;
+           }
+           div.leaflet-top.leaflet-left a
+               {
+                background-color: rgba(0,0,0,0.6);
+                color: #FFFFFF;
+                border-radius: 0px;
+                font-size: 20px;
+                width: 40px;
+                height: 40px;
+                padding-top: 7px;
+               }
+                div.leaflet-top.leaflet-left a:hover
+               {
+                background-color: #00c7a2;
+                
+               }
+               div.leaflet-control-layers.leaflet-control
+               {
+                   width: 310px;
+                  background-color: rgba(0,0,0,0 .0);
+               }
+               div.leaflet-control-layers.leaflet-control input,div.leaflet-control-layers.leaflet-control span
+               {
+                   display: inline-block;
+               }
+               div.leaflet-control-layers-base
+               {
+                    background-color: rgba(0,0,0,0.6);
+               }
+                 div.leaflet-control-layers-overlays
+               {
+                    background-color: #FFFFFF;
+               }
+
         </style>
+
 
     </head>
 
@@ -487,11 +533,107 @@ and open the template in the editor.
             <!--container holds map & right column-->
             <div class="row-fluid no-padding">
                 <!--map-->
-                <div class="col-md-7 col-sm-6 col-xs-12">
-                   
-                </div>
+                <div class="col-md-7 col-sm-6 col-xs-12 no-padding">
+                    <div id="map" class="smallmap leaflet-container leaflet-fade-anim"></div>
+                    <script type="text/javascript">
+//                     ustawienie widoku mapy niezbędne          
+                     var map = L.map('map').setView([51.505, - 0.09], 13);
+                             
+     //dodanie layerów do mapy                                             
+                                 var osm =
+            L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: 'Map data © OpenStreetMap contributors',
+                maxZoom: 19,
+                minZoom: 0
+            });
+      
+        var lmap =
+            L.tileLayer('http://{s}.tile.cloudmade.com/133079e21d8949fb8df55013e541c5d9/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18,
+            });
+
+        var mbmap =
+            L.tileLayer('http://{s}.tiles.mapbox.com/v3/mmlodkowski.gpl722i4/{z}/{x}/{y}.png', {
+                attribution: "<a href='http://mapbox.com/about/maps' target='_blank'>Terms & Feedback</a>",
+                maxZoom: 18
+            });
+
+        var baseMaps = {
+            "Mapy Bazowe": osm,
+            "Zdjęcia Satelitarne": lmap
+        };
+         var mpzp =
+                   L.tileLayer('http://{s}.tile.cloudmade.com/133079e21d8949fb8df55013e541c5d9/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18,
+            });
+        var studium =   L.tileLayer('http://{s}.tile.cloudmade.com/133079e21d8949fb8df55013e541c5d9/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18,
+            }); 
+            var strukturaWlasnosci =   L.tileLayer('http://{s}.tile.cloudmade.com/133079e21d8949fb8df55013e541c5d9/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18,
+            });
+             var wynikiAnkiet =   L.tileLayer('http://{s}.tile.cloudmade.com/133079e21d8949fb8df55013e541c5d9/997/256/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+                maxZoom: 18,
+            });                
+         var overlayMaps = {
+                                "MPZP": mpzp,
+                                "Studium": studium,
+                                "Struktura własności": strukturaWlasnosci,
+                                "Wyniki ankiet": wynikiAnkiet
+                                        };
+                        L.control.layers(baseMaps, overlayMaps).addTo(map);    
+          
+    var drawnItems = new L.FeatureGroup();                    
+    var drawControl = new L.Control.Draw({
+			position: 'topright',
+			draw: {
+				polyline: false,
+				circle: false,
+                rectangle: false,
+
+                polygon: {
+					allowIntersection: false,
+					showArea: true,
+					drawError: {
+						color: '#b00b00',
+						timeout: 1000,
+                        message: '<strong>Błąd<strong>'
+					},
+					shapeOptions: {
+						color: '#0033ff'//'#bfadf55',
+					}
+				}
+			},
+			edit: {
+				featureGroup: drawnItems,
+				remove: false,
+                edit: false
+			}
+		});
+		map.addControl(drawControl);
+
+
+        var search = new L.Control.Draw({
+			position: 'topright',
+			draw: {
+				polyline: false,
+				circle: false,
+                rectangle: true,
+                marker: false,
+                polygon: false
+            }
+		});
+		map.addControl(search);                                
+                    </script>
+                </div>  
+
                 <!--right column-->   
-                <div id="resizible_jquery" class="col-md-5 col-sm-6 offset-md-7 col-xs-12 col-md-offset-7 col-sm-offset-6 sidebar-style no-padding">
+                <div id="resizible_jquery" class="col-md-5 offset-md-7 col-xs-12 sidebar-style no-padding">
                     <!--tabbed navigation-->
                     <ul id="sidebar-nav-tabs" class="nav nav-tabs fluid">
                         <li style="display: inline-block;" id="details-tab" class="active"><a href="#details" data-toggle="tab">SZCZEGÓŁY</a></li>
@@ -1299,111 +1441,112 @@ and open the template in the editor.
                             </div>
                         </div>
                         <div>
+
                             <script type="text/ng-template" id="tree_item_renderer.html">
-                                                                < div ng - class = "{'tab-post':true, 'dotedline':post.parent==null}" >
-                                                                < ul >
-                                                                < li style = "wid t h:60p x " > < !-- start here  -- >
-                                                                < i mg styl e = "position :absolu t e ;"
-                                                                src = "/stat i c/images/fac e.jp eg" a l t = "avatar " width = "40px" height = "40px" clas s = "img-circle" >
-                                                                < / l   i>
-                                                                < li >
-                                                                < d iv  cl ass = " me dia-bo dy dropb o x  new_ m argin" > < !--   style = "mar gin - lef t: 0px; m a r gin-right: 0px;"  -- >
-                                                                < div ng - c l ass = "{'m e  d ia':true, 'post':post.parent==null,'sub_post':post.parent!=null}" >
-                                                                < di v > < !--   style = "display: inline-block; width:  100%;"-- >
-                                                                < s pan cl ass = "left" >
-                                                                < p class = " h ea d -autor" > < em > {[{ post.author_name }]}({[{ post.date | fromT oday }]}) < /em></p >
-                                                                < p cla ss = "post-content" >
-                                                        {[{ post.content }]}
-                                                        < /p>
-                                                                < /span> 
-                                                                < span  class = "r i ght" >
-                                                                < butto n ng - hi d e = " post.parent || !post.geometry" type = "button" clas s = "btn btn-xs btnwhite btngrey"
-                                                                ng - click = "zoom_chase(post) | trackEvent:'wyśrodkuj':'Button clicked':user:post.id " >
-                                                                < span class = "glyphicon glyphicon-screenshot" > < /span>
-                                                                < /button>
-                                                                < button ng - hide = "post.parent"
-                                                                ng - class = "{'btn':true, 'btn-xs':true, 'btn-default':post.subscription, 'btnwhite':true, 'btngrey':true}"
-                                                                ng - click = "subscribe(post, post.subscription);post.subscription=!post.subscription | trackEvent:'Subskrybuj':'Button clicked':user " >
-                                                                < !-- TODO add pushed pin in case of subscription -- >
-                                                                < span class = "glyphicon glyphicon-pushpin" > < /span>
-                                                                < /button>
-                                                                < /span>
-                                                                < /div>
-                                                                < ul ng - repeat = "item in post.filep" >
-                                                                < li > {[{ item.name }]}
-                                                        < a href = "fmen/download/{[{ item.file }]}" >
-                                                                < span class = "glyphicon glyphicon-download" > < /span>
-                                                                < /a>
-                                                                < /li>
-                                                                < /ul>
-                                                                < div style = "display: inline-block; width: 100%;" >
-                                                                < div class = "left" >
-                                                                < button type = "button" class = "btn btn-xs btnwhite btngrey"  ng - if = "post.nodes.length>0" ng - click = "showOneDown(post)  | trackEvent:'Rozwiń':'Button clicked':user " ng - disabled = "!showallposts" >
-                                                                < i ng - if = "showallposts==true" ng - hide = "post.rozwin" class = "fa fa-caret-up" > < /i>
-                                                                < i ng - if = "showallposts==true" ng - show = "post.rozwin" class = "fa fa-caret-down" > < /i>
-                                                                < i ng - if = "showallposts==false" ng - show = "post.rozwin" class = "fa fa-caret-down" > < /i>
-                                                        {[{ post.numcom || 0 }]} odpowiedzi
-                                                                < /button>
-                                                                < /div>
-                                                                < div class = "right" >
-                                                                < button  class = "btn btn-xs btngrey btnwhite"
-                                                                ng - hide = "'dwa'=='AnonymousUser'" ng - disabled = "post.sub_rates"
-                                                                ng - click = "scoreUp(post) | trackEvent:'score-up':'Button clicked':user " >
-                                                                < span  class = "glyphicon glyphicon-thumbs-up" > < /span> <span>{[{ post.positive_rate || 0 }]}</span > za
-                                                                < /button>
-                                                                < button  class = "btn btn-xs btngrey btnwhite"
-                                                                ng - hide = "'dwa'=='AnonymousUser'" ng - disabled = "post.sub_rates"
-                                                                ng - click = "scoreDown(post) | trackEvent:'score-down':'Button clicked':user " >
-                                                                < span class = "glyphicon glyphicon-thumbs-down" > < /span> <span>{[{ post.negative_rate || 0 }]}</span > przeciw
-                                                                < /button>
-                                                                < button ng - hide = "'dwa'=='AnonymousUser'" class = "btn btn-xs btnsea btnwhite" ng - click = "comment(post) | trackEvent:'Dodaj Komentarz':'Button clicked':user:'':''" >
-                                                                < span class = "glyphicon glyphicon-comment" > < /span>skomentuj
-                                                                < /button>
-                                                                < /div>
-                                                                < /div>
-                                                                < textarea ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
-                                                                ng - model = "post.text"
-                                                                class = "form-control"
-                                                                rows = "3" >
-                                                                < /textarea>
-                                                                < input type = "hidden" ng - model = "post.plan" value = "" / >
-                                                                < div class = "allign_right" >
-                                                                < div class = "fileinput fileinput-new" data - provides = "fileinput" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)" >
-                                                                < button type = "button" class = "btn btn-xs btn-file btnwhite btngrey" > < span class = "glyphicon glyphicon-paperclip" > < /span><input name="..." type="file" value="{[{ post.id }]}" multiple file-change / > < /button>
-                                                                < /div>
-                                                                < button type = "button" class = "btn btn-xs btnblue" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
-                                                                ng - click = "delete(post) | trackEvent:'Usuń':'Button clicked':user " > usuń
-                                                                < /button>
-                                                                < button type = "button" class = "btn btn-xs btnred" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
-                                                                ng - click = "addDown(post) | trackEvent:'Zapisz':'Button clicked':user " > publikuj
-                                                                < /button>
-                                                                < /div>
-                                                                < /div>
-                                                                < /div>
-                                                                < /li>
-                                                                < /ul>
-                                                                < /div>
+                                < div ng - class = "{'tab-post':true, 'dotedline':post.parent==null}" >
+                                        < ul >
+                                        < li style = "wid t h:60p x " > < !-- start here  -- >
+                                        < i mg styl e = "position :absolu t e ;"
+                                        src = "/stat i c/images/fac e.jp eg" a l t = "avatar " width = "40px" height = "40px" clas s = "img-circle" >
+                                        < / l   i>
+                                        < li >
+                                        < d iv  cl ass = " me dia-bo dy dropb o x  new_ m argin" > < !--   style = "mar gin - lef t: 0px; m a r gin-right: 0px;"  -- >
+                                        < div ng - c l ass = "{'m e  d ia':true, 'post':post.parent==null,'sub_post':post.parent!=null}" >
+                                        < di v > < !--   style = "display: inline-block; width:  100%;"-- >
+                                        < s pan cl ass = "left" >
+                                        < p class = " h ea d -autor" > < em > {[{ post.author_name }]}({[{ post.date | fromT oday }]}) < /em></p >
+                                        < p cla ss = "post-content" >
+                                {[{ post.content }]}
+                                < /p>
+                                        < /span> 
+                                        < span  class = "r i ght" >
+                                        < butto n ng - hi d e = " post.parent || !post.geometry" type = "button" clas s = "btn btn-xs btnwhite btngrey"
+                                        ng - click = "zoom_chase(post) | trackEvent:'wyśrodkuj':'Button clicked':user:post.id " >
+                                        < span class = "glyphicon glyphicon-screenshot" > < /span>
+                                        < /button>
+                                        < button ng - hide = "post.parent"
+                                        ng - class = "{'btn':true, 'btn-xs':true, 'btn-default':post.subscription, 'btnwhite':true, 'btngrey':true}"
+                                        ng - click = "subscribe(post, post.subscription);post.subscription=!post.subscription | trackEvent:'Subskrybuj':'Button clicked':user " >
+                                        < !-- TODO add pushed pin in case of subscription -- >
+                                        < span class = "glyphicon glyphicon-pushpin" > < /span>
+                                        < /button>
+                                        < /span>
+                                        < /div>
+                                        < ul ng - repeat = "item in post.filep" >
+                                        < li > {[{ item.name }]}
+                                < a href = "fmen/download/{[{ item.file }]}" >
+                                        < span class = "glyphicon glyphicon-download" > < /span>
+                                        < /a>
+                                        < /li>
+                                        < /ul>
+                                        < div style = "display: inline-block; width: 100%;" >
+                                        < div class = "left" >
+                                        < button type = "button" class = "btn btn-xs btnwhite btngrey"  ng - if = "post.nodes.length>0" ng - click = "showOneDown(post)  | trackEvent:'Rozwiń':'Button clicked':user " ng - disabled = "!showallposts" >
+                                        < i ng - if = "showallposts==true" ng - hide = "post.rozwin" class = "fa fa-caret-up" > < /i>
+                                        < i ng - if = "showallposts==true" ng - show = "post.rozwin" class = "fa fa-caret-down" > < /i>
+                                        < i ng - if = "showallposts==false" ng - show = "post.rozwin" class = "fa fa-caret-down" > < /i>
+                                {[{ post.numcom || 0 }]} odpowiedzi
+                                        < /button>
+                                        < /div>
+                                        < div class = "right" >
+                                        < button  class = "btn btn-xs btngrey btnwhite"
+                                        ng - hide = "'dwa'=='AnonymousUser'" ng - disabled = "post.sub_rates"
+                                        ng - click = "scoreUp(post) | trackEvent:'score-up':'Button clicked':user " >
+                                        < span  class = "glyphicon glyphicon-thumbs-up" > < /span> <span>{[{ post.positive_rate || 0 }]}</span > za
+                                        < /button>
+                                        < button  class = "btn btn-xs btngrey btnwhite"
+                                        ng - hide = "'dwa'=='AnonymousUser'" ng - disabled = "post.sub_rates"
+                                        ng - click = "scoreDown(post) | trackEvent:'score-down':'Button clicked':user " >
+                                        < span class = "glyphicon glyphicon-thumbs-down" > < /span> <span>{[{ post.negative_rate || 0 }]}</span > przeciw
+                                        < /button>
+                                        < button ng - hide = "'dwa'=='AnonymousUser'" class = "btn btn-xs btnsea btnwhite" ng - click = "comment(post) | trackEvent:'Dodaj Komentarz':'Button clicked':user:'':''" >
+                                        < span class = "glyphicon glyphicon-comment" > < /span>skomentuj
+                                        < /button>
+                                        < /div>
+                                        < /div>
+                                        < textarea ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
+                                        ng - model = "post.text"
+                                        class = "form-control"
+                                        rows = "3" >
+                                        < /textarea>
+                                        < input type = "hidden" ng - model = "post.plan" value = "" / >
+                                        < div class = "allign_right" >
+                                        < div class = "fileinput fileinput-new" data - provides = "fileinput" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)" >
+                                        < button type = "button" class = "btn btn-xs btn-file btnwhite btngrey" > < span class = "glyphicon glyphicon-paperclip" > < /span><input name="..." type="file" value="{[{ post.id }]}" multiple file-change / > < /button>
+                                        < /div>
+                                        < button type = "button" class = "btn btn-xs btnblue" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
+                                        ng - click = "delete(post) | trackEvent:'Usuń':'Button clicked':user " > usuń
+                                        < /button>
+                                        < button type = "button" class = "btn btn-xs btnred" ng - hide = "!(post.zmiennac!=undefined && post.zmiennac==true)"
+                                        ng - click = "addDown(post) | trackEvent:'Zapisz':'Button clicked':user " > publikuj
+                                        < /button>
+                                        < /div>
+                                        < /div>
+                                        < /div>
+                                        < /li>
+                                        < /ul>
+                                        < /div>
 
-                                                                < div ng - if = "post.nodes.length>0" class = "tab_border" ng - hide = "!(post.rozwin!=undefined && post.rozwin==true) && showallposts" >
-                                                                < div ng - repeat = "post in post.nodes "
-                                                                ng - include = "'tree_item_renderer.html'" >
-                                                                < /div>
-                                                                < /div>
-
-
-
-                                                                < /div>
-                                                                < /li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                        < div ng - if = "post.nodes.length>0" class = "tab_border" ng - hide = "!(post.rozwin!=undefined && post.rozwin==true) && showallposts" >
+                                        < div ng - repeat = "post in post.nodes "
+                                        ng - include = "'tree_item_renderer.html'" >
+                                        < /div>
+                                        < /div>
 
 
-                                </div>
-                            </div>
-                        </div>
-      
-</body>
-</html>
+
+                                        < /div>
+                                        < /li>
+                                        < /ul>
+                                        < /div>
+
+                                        < /div>
+                                        < /div>
+
+
+                                        < /div>
+                                        < /div>
+                                        < /div>
+
+                                        < /body>
+                                        < /html>
